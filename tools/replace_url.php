@@ -154,3 +154,21 @@ function __processUrlReplace($oldUrl, $newUrl, $logManager, $replaceDomaineOnly 
 		}
 	}
 }
+
+function processFiles($directory, &$translations)
+{
+    $files = glob($directory . "/*.php");
+
+    foreach ($files as $phpFile) {
+        $content = file_get_contents($phpFile);
+        preg_match_all('/\$langs->trans\(["\'](.*?)["\']/', $content, $matches);
+        preg_match_all('/\$langs->transnoentitiesnoconv\(["\'](.*?)["\']/', $content, $matchesNoConv);
+
+        $translations = array_merge($translations, $matches[1], $matchesNoConv[1]);
+    }
+
+    $subdirectories = glob($directory . '/*', GLOB_ONLYDIR);
+    foreach ($subdirectories as $subdirectory) {
+        processFiles($subdirectory, $translations);
+    }
+}

@@ -145,7 +145,15 @@ if(!checkDevToolsAccess(false)){
 		'icon' => 'fa fa-flag'
 	);
 
-	devToolsListSortByItemChildArrayKey($toolList,'title');
+    $toolList[] = array(
+        'title'=> 'TranslationKeys',
+        'desc' => 'TranslationKeysModulesDesc',
+        'file' => 'devcommunitytools/tools/translation_keys.php',
+        'icon' => 'fa fa-flag'
+    );
+
+
+    devToolsListSortByItemChildArrayKey($toolList,'title');
 
 
 	print '<div class="dev-tools-search-container"><input autofocus name="search_dev_tools" value="" id="search-dev-tools-form-input" class="dev-tools-search-input"   placeholder="'.$langs->trans('Search').'" autocomplete="off"></div>';
